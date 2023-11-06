@@ -1,83 +1,83 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
+  box-sizing: border-box;
+  margin: 0;
 }
 body {
-    background: linear-gradient(pink, green);
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  background: linear-gradient(pink, green);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .container {
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .board {
-    background-color: aqua;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 320px;
-    border-radius: 20px;
-    gap: 10px;
+  background-color: aqua;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  border-radius: 20px;
+  gap: 10px;
 }
 .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border: solid 2px red;
-    width: 100%;
-    min-height: 100px;
-} 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid 2px red;
+  width: 100%;
+  min-height: 300px;
+}
 
 .modal {
-    display: none;
+  display: none;
 }
 .card {
-    background-color: rgb(211, 211, 211);
-    display: flex;
-    gap: 20px;
-    border: solid 1px white;
-    border-radius: 10px;
-    width: 100%;
-    justify-content: space-between;
-    padding: 10px;
+  background-color: rgb(211, 211, 211);
+  display: flex;
+  gap: 20px;
+  border: solid 1px white;
+  border-radius: 10px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
 }
 .border {
-    border-radius: 50%;
-    border: solid 1px black;
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-content: center;
+  border-radius: 50%;
+  border: solid 1px black;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-content: center;
 }
 .bordernote {
-    border-radius: 50%;
-    border: solid 1px black;
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-content: center;
+  border-radius: 50%;
+  border: solid 1px black;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-content: center;
 }
 .right {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 form {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
