@@ -3,7 +3,8 @@
   margin: 0;
 }
 body {
-  background: linear-gradient(pink, green);
+  background: url(./wall.jpeg);
+  background-size: contain;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -20,7 +21,8 @@ body {
 }
 
 .board {
-  background-color: aqua;
+  background-color: rgb(229, 229, 229);
+  border: solid 2px rgb(118, 47, 16);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -34,9 +36,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border: solid 2px red;
+  /* border: solid 2px red; */
   width: 100%;
-  min-height: 300px;
+  min-height: 0px;
 }
 
 .modal {
@@ -46,7 +48,7 @@ body {
   background-color: rgb(211, 211, 211);
   display: flex;
   gap: 20px;
-  border: solid 1px white;
+  border: solid 1px black;
   border-radius: 10px;
   width: 100%;
   justify-content: space-between;
@@ -81,3 +83,6 @@ form {
   flex-direction: column;
   gap: 10px;
 }
+/* .left {
+  background-color: green;
+} */

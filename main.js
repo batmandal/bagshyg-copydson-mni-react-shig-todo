@@ -1,9 +1,8 @@
 const cards = document.querySelectorAll(".cards");
 const modal = document.querySelector(".modal");
-const addBtn = document.querySelector("#add-btn");
+const addBtn = document.querySelectorAll("#add-btn");
 const form = document.querySelector("form");
 const card = document.querySelectorAll(".card");
-const statdiv = document.querySelectorAll(".status");
 let id = 1;
 
 let data = [
@@ -15,7 +14,6 @@ let data = [
     priority: "1",
   },
 ];
-let data2 = [];
 
 const setData = (arr) => {
   data = arr;
@@ -33,13 +31,39 @@ const render = () => {
       cards[1].innerHTML += Card(item);
     } else if (item.status === "Stuck") {
       cards[2].innerHTML += Card(item);
-    } else if (item.status === "Complete") {
+    } else if (item.status === "Done") {
       cards[3].innerHTML += Card(item);
+      const buttoncheck = document.querySelectorAll(".left");
+      buttoncheck.forEach((element) => {
+        element.style.background = "green";
+      });
     }
   });
 
-  const carddrag = document.querySelectorAll(".card");
+  const deletetask = document.querySelectorAll(".deletetask");
+  deletetask.forEach((item) => {
+    item.addEventListener("click", () => {
+      const id = item.id;
+      console.log(id);
+      const newDatas = data.filter((e) => {
+        return e.id !== id;
+      });
+      setData(newDatas);
+    });
+  });
 
+  const checkbutton = document.querySelectorAll(".left");
+  checkbutton.forEach((bttns) => {
+    bttns.addEventListener("click", () => {
+      bttns.style.background = "green";
+      const done = document.querySelector(".done").textContent;
+      bttns.status = done;
+      console.log(bttns.id);
+      return bttns;
+    });
+  });
+
+  const carddrag = document.querySelectorAll(".card");
   carddrag.forEach((dragable) => {
     dragable.addEventListener("dragstart", (event) => {
       event.dataTransfer.setData("text", event.target.id);
@@ -51,7 +75,7 @@ const Card = (props) => {
   return `
  <div class="card" id="${props.id}" draggable="true">
 
- <div class="left border">
+ <div class="left border" id="${props.id}">
  <i class="fa-solid fa-check"></i>
 </div>
 <div class="middle">
@@ -62,7 +86,7 @@ const Card = (props) => {
 
 </div>
 <div class="right">
-       <div class="border deletetask">
+       <div class="border deletetask" id="${props.id}" >
            <i class="fa-solid fa-xmark"></i>
        </div>
    <div class="bordernote">
@@ -76,8 +100,10 @@ const Card = (props) => {
 
 render();
 
-addBtn.addEventListener("click", () => {
-  modal.style.display = "flex";
+addBtn.forEach((a) => {
+  a.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
 });
 
 form.addEventListener("submit", (event) => {
@@ -91,57 +117,11 @@ form.addEventListener("submit", (event) => {
   const title = elements["title"].value;
   const status = elements.status.value;
   const newData = [...data, { title, desc, status, id: "id" + id }];
-  id++;
-
+  // id++;
   setData(newData);
 
-  // const taskstitle = document.querySelectorAll(".task-name");
-  // const checktask = document.querySelectorAll(".border");
-  // for (let i = 0; i < checktask.length; i++) {
-  //   checktask[i].addEventListener("click", () => {
-  //     checktask[i].style.background = "green";
-  //     for (let i = 0; i < taskstitle.length; i++) {
-  //       taskstitle[i].style.textDecoration = "line-through";
-  //     }
-  //   });
-  // }
-
-  // const deletetask = document.querySelectorAll(".deletetask");
-  // for (let i = 0; i < deletetask.length; i++) {
-  //   deletetask[i].onclick = function () {
-  //     this.parentNode.parentNode.remove();
-  //   };
-  // }
-
   modal.style.display = "none";
-  for (let i = 0; i < card.length; i++) {
-    if (status[i].innerHTML == "To do") {
-      alert("todo");
-    }
-  }
 });
-
-// const cardsdrag = document.querySelectorAll(".cards");
-// cardsdrag.forEach((box) => {
-//   box.addEventListener("drop", (event) => {
-//     event.preventDefault();
-//     const id = event.dataTransfer.getData("text");
-//     // const dragable = document.querySelector(`#${id}`);
-//     setData(
-//       data.map((item) => {
-//         if (item.id === id) {
-//           item.status = event.target.status;
-//         }
-//         return item;
-//       })
-//     );
-//   });
-//   box.addEventListener("dragover", function (event) {
-//     if (event.target === this) {
-//       event.preventDefault();
-//     }
-//   });
-// });
 
 const boards = document.querySelectorAll(".board");
 boards.forEach((board) => {
@@ -166,7 +146,3 @@ boards.forEach((board) => {
     setData(newData);
   });
 });
-// for (let i = 0; i < card.length; i++) {
-//   if (card[i].value) {
-//   }
-// }
