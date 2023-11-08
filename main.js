@@ -3,16 +3,21 @@ const modal = document.querySelector(".modal");
 const addBtn = document.querySelectorAll("#add-btn");
 const form = document.querySelector("form");
 const card = document.querySelectorAll(".card");
+const container = document.querySelector(".container");
+const counter = document.querySelectorAll(".counter");
 let id = 1;
 
+let datas = JSON.parse(localStorage.getItem("data")) ?? [];
+let count = localStorage.getItem("id") ?? 0;
+
 let data = [
-  {
-    id: "id1",
-    title: "Hello",
-    description: "shsfhsfh",
-    status: "To do",
-    priority: "1",
-  },
+  // {
+  //   id: "id1",
+  //   title: "Hello",
+  //   description: "shsfhsfh",
+  //   status: "To do",
+  //   priority: "High",
+  // },
 ];
 
 const setData = (arr) => {
@@ -24,7 +29,15 @@ const render = () => {
   cards.forEach((card) => {
     card.innerHTML = "";
   });
-  data.forEach((item) => {
+
+  const sorted = data.sort((a, b) => {
+    const sa = a.priority === "high" ? 0 : a.priority === "medium" ? 1 : 2;
+    const sb = b.priority === "high" ? 0 : b.priority === "medium" ? 1 : 2;
+
+    return sa - sb;
+  });
+
+  sorted.forEach((item) => {
     if (item.status === "To do") {
       cards[0].innerHTML += Card(item);
     } else if (item.status === "In progress") {
@@ -33,10 +46,6 @@ const render = () => {
       cards[2].innerHTML += Card(item);
     } else if (item.status === "Done") {
       cards[3].innerHTML += Card(item);
-      const buttoncheck = document.querySelectorAll(".left");
-      buttoncheck.forEach((element) => {
-        element.style.background = "green";
-      });
     }
   });
 
@@ -49,17 +58,23 @@ const render = () => {
         return e.id !== id;
       });
       setData(newDatas);
+      counters();
     });
   });
 
   const checkbutton = document.querySelectorAll(".left");
   checkbutton.forEach((bttns) => {
     bttns.addEventListener("click", () => {
-      bttns.style.background = "green";
-      const done = document.querySelector(".done").textContent;
-      bttns.status = done;
-      console.log(bttns.id);
-      return bttns;
+      const id = bttns.id;
+      const newData = data.map((item) => {
+        if (item.id === id) {
+          item.status = "Done";
+        }
+        return item;
+      });
+
+      setData(newData);
+      counters();
     });
   });
 
@@ -82,6 +97,7 @@ const Card = (props) => {
    <h3 class="task-name">${props.title}</h3>
    <p class="task">${props.desc}</p>
    <p class="status">${props.status}</p>
+   <div class="priority">${props.priority}</div>
    
 
 </div>
@@ -103,6 +119,7 @@ render();
 addBtn.forEach((a) => {
   a.addEventListener("click", () => {
     modal.style.display = "flex";
+    container.style.opacity = "0.7";
   });
 });
 
@@ -116,9 +133,14 @@ form.addEventListener("submit", (event) => {
   const desc = elements["desc"].value;
   const title = elements["title"].value;
   const status = elements.status.value;
-  const newData = [...data, { title, desc, status, id: "id" + id }];
-  // id++;
+  const priority = elements.priority.value;
+  const newData = [...data, { title, desc, status, id: "id" + id, priority }];
+  id++;
+
   setData(newData);
+  inputclear(elements);
+  container.style.opacity = "1";
+  counters();
 
   modal.style.display = "none";
 });
@@ -144,5 +166,30 @@ boards.forEach((board) => {
     console.log(newData);
 
     setData(newData);
+    counters();
   });
+});
+const counters = () => {
+  for (let i = 0; i < cards.length; i++) {
+    counter[i].innerHTML = cards[i].childElementCount;
+  }
+};
+counters();
+
+function inputclear(elements) {
+  for (let i = 0; i < 2; i++) {
+    elements[i].value = "";
+  }
+}
+
+const savedata = () => {
+  localStorage.setItem("data", JSON.stringify(data));
+  localStorage.setItem("id", id);
+};
+savedata();
+
+const exittask = document.querySelector(".exitaddtask");
+exittask.addEventListener("click", () => {
+  modal.style.display = "none";
+  container.style.opacity = "1";
 });

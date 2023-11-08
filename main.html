@@ -13,32 +13,49 @@
   <body>
     <div class="container">
       <div class="board">
-        <h2>To do</h2>
+        <div class="board_title">
+          <h2>To do</h2>
+          <p class="counter"></p>
+        </div>
 
         <div class="cards"></div>
 
         <button id="add-btn">+ add card</button>
       </div>
       <div class="board">
-        <h2>In progress</h2>
+        <div class="board_title">
+          <h2>In progress</h2>
+          <p class="counter"></p>
+        </div>
+
         <div class="cards"></div>
         <button id="add-btn">+ add card</button>
       </div>
       <div class="board">
-        <h2>Stuck</h2>
+        <div class="board_title">
+          <h2>Stuck</h2>
+          <p class="counter"></p>
+        </div>
+
         <div class="cards"></div>
         <button id="add-btn">+ add card</button>
       </div>
       <div class="board">
-        <h2 class="done">Done</h2>
+        <div class="board_title">
+          <h2 class="done">Done</h2>
+          <p class="counter"></p>
+        </div>
+
         <div class="cards"></div>
         <button id="add-btn">+ add card</button>
       </div>
     </div>
     <div class="modal">
       <form>
-        <!-- <input type="text" name="title">
-            <button type="submit">submit</button> -->
+        <div class="bottom">
+          <h2>Add Task</h2>
+          <div class="exitaddtask"><i class="fa-solid fa-xmark"></i></div>
+        </div>
         <div>
           <h4 id="firsttitle">Title</h4>
           <input type="text" name="" id="title" required />

@@ -18,6 +18,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 
 .board {
@@ -43,6 +44,7 @@ body {
 
 .modal {
   display: none;
+  position: absolute;
 }
 .card {
   background-color: rgb(211, 211, 211);
@@ -83,6 +85,58 @@ form {
   flex-direction: column;
   gap: 10px;
 }
-/* .left {
+.border:hover {
+  opacity: 0.6;
+}
+.bordernote:hover {
+  opacity: 0.6;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.exitaddtask {
+  /* border-radius: 50%; */
+  display: grid;
+  place-content: center;
+  /* border: solid black 2px; */
+  height: 20px;
+  width: 20px;
+}
+.exitaddtask:hover {
+  opacity: 0.6;
+}
+#add-btn {
+  height: 30px;
+  width: 150px;
+}
+.board:last-child .left {
   background-color: green;
-} */
+}
+.board:last-child .middle > h3 {
+  text-decoration: line-through;
+}
+.priority {
+  display: grid;
+  place-content: center;
+  padding: 2px 5px;
+  border: solid 1px black;
+  border-radius: 5px;
+}
+.status {
+  display: none;
+}
+.middle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.board_title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.counter {
+  font-size: 25px;
+}
