@@ -9,7 +9,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding-top: 100px;
   align-items: center;
 }
 .container {
@@ -30,6 +30,7 @@ body {
   justify-content: center;
   align-items: center;
   min-width: 320px;
+  /* min-height: 100px; */
   border-radius: 20px;
   gap: 10px;
 }
@@ -139,4 +140,12 @@ form {
 }
 .counter {
   font-size: 25px;
+}
+#search {
+  width: 300px;
+  height: 50px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  border: solid rgb(118, 47, 16) 2px;
+  font-size: 16px;
 }

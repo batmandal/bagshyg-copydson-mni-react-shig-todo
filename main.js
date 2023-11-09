@@ -5,20 +5,12 @@ const form = document.querySelector("form");
 const card = document.querySelectorAll(".card");
 const container = document.querySelector(".container");
 const counter = document.querySelectorAll(".counter");
-let id = 1;
+const search = document.querySelector("#search");
+let editid = 0;
+let editTask = 0;
 
-let datas = JSON.parse(localStorage.getItem("data")) ?? [];
-let count = localStorage.getItem("id") ?? 0;
-
-let data = [
-  // {
-  //   id: "id1",
-  //   title: "Hello",
-  //   description: "shsfhsfh",
-  //   status: "To do",
-  //   priority: "High",
-  // },
-];
+let data = JSON.parse(localStorage.getItem("data")) ?? [];
+let id = localStorage.getItem("id") ?? 0;
 
 const setData = (arr) => {
   data = arr;
@@ -59,6 +51,7 @@ const render = () => {
       });
       setData(newDatas);
       counters();
+      savedata();
     });
   });
 
@@ -75,6 +68,35 @@ const render = () => {
 
       setData(newData);
       counters();
+      savedata();
+    });
+  });
+
+  const edit = document.querySelectorAll(".bordernote");
+  edit.forEach((edt) => {
+    edt.addEventListener("click", () => {
+      editid = edt.parentNode.parentNode.id;
+      console.log(editid);
+      const editTitle =
+        edt.parentNode.parentNode.querySelector(".task-name").textContent;
+
+      const editDesc =
+        edt.parentNode.parentNode.querySelector(".task").textContent;
+
+      const editPrio =
+        edt.parentNode.parentNode.querySelector(".priority").textContent;
+
+      const editStatus =
+        edt.parentNode.parentNode.querySelector(".status").textContent;
+      console.log(editStatus, editDesc, editPrio, editTitle);
+
+      modal.style.display = "flex";
+      modal.querySelector("#title").value = editTitle;
+      modal.querySelector("#desc").value = editDesc;
+      modal.querySelector("#browsers").value = editStatus;
+      modal.querySelector("#browsers1").value = editPrio;
+
+      editTask = 1;
     });
   });
 
@@ -126,21 +148,44 @@ addBtn.forEach((a) => {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  if (editTask == 0) {
+    const { elements } = event.target;
+    console.log(elements);
+    const desc = elements["desc"].value;
+    const title = elements["title"].value;
+    const status = elements.status.value;
+    const priority = elements.priority.value;
+    const newData = [...data, { title, desc, status, id: "id" + id, priority }];
+    id++;
+    setData(newData);
+    inputclear(elements);
+    savedata();
+    container.style.opacity = "1";
+    counters();
+  } else {
+    let card = document.querySelectorAll(".card");
+    card.forEach((item) => {
+      console.log(item.id);
+      const newData = data.map((item) => {
+        // if (item.id === id) {
+        //   item.status = "Done";
+        // }
+        if (item.id == editid) {
+          // console.log(item.querySelector("h3").textContent);
+          // item.title.textContent = form.elements.title.value;
+          item.title = form.elements.title.value;
+          item.desc = form.elements.desc.value;
+          item.status = form.elements.status.value;
+          item.priority = form.elements.priority.value;
+        }
+        return item;
+      });
+      counters();
+      setData(newData);
+      savedata();
+    });
+  }
   id++;
-
-  const { elements } = event.target;
-  console.log(elements);
-  const desc = elements["desc"].value;
-  const title = elements["title"].value;
-  const status = elements.status.value;
-  const priority = elements.priority.value;
-  const newData = [...data, { title, desc, status, id: "id" + id, priority }];
-  id++;
-
-  setData(newData);
-  inputclear(elements);
-  container.style.opacity = "1";
-  counters();
 
   modal.style.display = "none";
 });
@@ -167,6 +212,7 @@ boards.forEach((board) => {
 
     setData(newData);
     counters();
+    savedata();
   });
 });
 const counters = () => {
@@ -177,7 +223,7 @@ const counters = () => {
 counters();
 
 function inputclear(elements) {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 4; i++) {
     elements[i].value = "";
   }
 }
@@ -186,10 +232,18 @@ const savedata = () => {
   localStorage.setItem("data", JSON.stringify(data));
   localStorage.setItem("id", id);
 };
-savedata();
+// savedata();
 
 const exittask = document.querySelector(".exitaddtask");
 exittask.addEventListener("click", () => {
   modal.style.display = "none";
   container.style.opacity = "1";
+});
+
+search.addEventListener("input", (event) => {
+  const value = event.target.value;
+  const newData = data.filter((item) => {
+    return item.title.includes(value);
+  });
+  setData(newData);
 });
